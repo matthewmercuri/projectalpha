@@ -1,12 +1,17 @@
 from tngo import Tiingo
 
+Tiingo = Tiingo()
+
 
 class Data:
     def __init__(self, source):
         self.source = source
 
     def price(self, symbol):
-        return Tiingo.price(symbol)
+        if self.source == "tiingo":
+            price = Tiingo.price(symbol)
+
+        return price
 
     def daily_data(self, symbol, start, end):
         if self.source == "tiingo":
@@ -21,4 +26,7 @@ class Data:
         return valid_syms
 
     def is_valid(self, symbol):
-        pass
+        if self.source == "tiingo":
+            valid = Tiingo.is_valid(symbol)
+
+        return valid

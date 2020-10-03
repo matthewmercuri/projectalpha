@@ -7,16 +7,16 @@ class Portfolio(Data, Risk):
         super().__init__(source)
         self.portfolio = {}
 
-    def add_position(self, ticker, shares):
-        ticker = ticker.upper()
-        price = self.price(ticker)
-        self.portfolio[ticker] = {
+    def add_position(self, symbol, shares):
+        symbol = symbol.upper()
+        price = self.price(symbol)
+        self.portfolio[symbol] = {
                                   "shares": shares,
                                   "price": price,
                                   "value": shares*price
                                   }
 
-    def delete_position(self, ticker, shares):
+    def delete_position(self, symbol, shares):
         pass
 
     def add_cash(self, cash, currency):
