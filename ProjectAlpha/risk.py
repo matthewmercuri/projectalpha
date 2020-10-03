@@ -37,6 +37,9 @@ class Risk:
     def roi(self):
         pass
 
+    def pandl(self):
+        pass
+
     def alpha(self):
         pass
 

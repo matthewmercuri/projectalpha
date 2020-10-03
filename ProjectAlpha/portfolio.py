@@ -10,15 +10,13 @@ class Portfolio(Data, Risk):
     def __init__(self, source="tiingo"):
         super().__init__(source)
         self.portfolio = {}
+        self.portfolio['positions'] = {}
 
     def add_position(self, symbol, shares):
-        symbol = self.symbol_check(symbol)
-        price = self.price(symbol)
-        self.portfolio[symbol] = {
-                                  "shares": shares,
-                                  "price": price,
-                                  "value": shares*price
-                                  }
+        ''' May want to add other info about the position, like
+        currency
+        '''
+        self.portfolio['positions'][symbol] = {"shares": shares}
 
     def delete_position(self, symbol, shares):
         pass
@@ -27,6 +25,7 @@ class Portfolio(Data, Risk):
         pass
 
     def return_series(self):
+        positions = self.portfolio['positions']
         pass
 
     def export(self):
@@ -46,7 +45,7 @@ class Portfolio(Data, Risk):
 
 
 Portfolio = Portfolio()
-Portfolio.add_position('aapl', 10)
+Portfolio.add_position('AAPL', 10)
 print(Portfolio.portfolio)
-print(Portfolio.daily_data('AAPL'))
-print(Portfolio.symbol_meta('AAPL'))
+# print(Portfolio.daily_data('AAPL'))
+# print(Portfolio.symbol_meta('AAPL'))

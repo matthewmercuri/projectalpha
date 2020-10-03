@@ -14,7 +14,7 @@ class Data:
 
     def price(self, symbol):
         if self.source == "tiingo":
-            symbol = self.is_valid(symbol)
+            symbol = self.symbol_check(symbol)
             price = Tiingo.price(symbol)
 
         return price
@@ -28,11 +28,12 @@ class Data:
 
         return dd
 
-    def valid_symbols(self):
+    def symbol_meta(self, symbol):
         if self.source == "tiingo":
-            valid_syms = Tiingo.valid_symbols()
+            symbol = self.symbol_check(symbol)
+            meta = Tiingo.symbol_meta(symbol)
 
-        return valid_syms
+        return meta
 
     def is_valid(self, symbol):
         if self.source == "tiingo":
@@ -41,15 +42,14 @@ class Data:
         if valid is False:
             raise NameError('Symbol is not found')
 
-    def symbol_meta(self, symbol):
-        if self.source == "tiingo":
-            symbol = self.is_valid(symbol)
-            meta = Tiingo.symbol_meta(symbol)
-
-        return meta
-
     def symbol_check(self, symbol):
         symbol = symbol.upper()
         self.is_valid(symbol)
 
         return symbol
+
+    def valid_symbols(self):
+        if self.source == "tiingo":
+            valid_syms = Tiingo.valid_symbols()
+
+        return valid_syms
