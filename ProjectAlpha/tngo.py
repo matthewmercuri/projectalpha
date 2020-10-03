@@ -59,8 +59,7 @@ class Tiingo:
 
         return start, end
 
-    def hist_data(self, symbol, full=True, start_date=None,
-                  end_date=None, save_locally=False):
+    def daily_data(self, symbol, full, start_date, end_date, save_locally):
         if full is True:
             start, end = self.data_length(symbol)
         else:

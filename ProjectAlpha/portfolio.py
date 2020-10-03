@@ -44,3 +44,5 @@ class Portfolio(Data, Risk):
 Portfolio = Portfolio()
 Portfolio.add_position('AAPL', 10)
 print(Portfolio.portfolio)
+# print(Portfolio.daily_data('AAPL'))
+print(Portfolio.symbol_meta('AAPL'))

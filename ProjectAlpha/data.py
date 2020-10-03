@@ -13,9 +13,11 @@ class Data:
 
         return price
 
-    def daily_data(self, symbol, start, end):
+    def daily_data(self, symbol, full=True, start_date=None,
+                   end_date=None, save_locally=False):
         if self.source == "tiingo":
-            dd = Tiingo.daily_data(symbol, start, end)
+            dd = Tiingo.daily_data(symbol, full, start_date, end_date,
+                                   save_locally)
 
         return dd
 
@@ -30,3 +32,9 @@ class Data:
             valid = Tiingo.is_valid(symbol)
 
         return valid
+
+    def symbol_meta(self, symbol):
+        if self.source == "tiingo":
+            meta = Tiingo.symbol_meta(symbol)
+
+        return meta
