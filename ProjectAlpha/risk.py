@@ -4,6 +4,8 @@ would this translate to when we use these metrics to backtest
 a portfolio that trades?
 
 - start with simpler methods like alpha, beta, etc.
+- we want to start this class by being applied to the return
+df (which would be the return series of the port)
 '''
 
 

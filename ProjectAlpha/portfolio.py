@@ -1,6 +1,10 @@
 from data import Data
 from risk import Risk
 
+''' This portfolio object can change over time, so we should be
+able to use the same class in a trading backtest.
+'''
+
 
 class Portfolio(Data, Risk):
     def __init__(self, source="tiingo"):
@@ -8,8 +12,7 @@ class Portfolio(Data, Risk):
         self.portfolio = {}
 
     def add_position(self, symbol, shares):
-        symbol = symbol.upper()
-        self.is_valid(symbol)  # want this to raise error if not valid
+        symbol = self.symbol_check(symbol)
         price = self.price(symbol)
         self.portfolio[symbol] = {
                                   "shares": shares,
@@ -43,7 +46,7 @@ class Portfolio(Data, Risk):
 
 
 Portfolio = Portfolio()
-Portfolio.add_position('AAPL', 10)
+Portfolio.add_position('aapl', 10)
 print(Portfolio.portfolio)
-# print(Portfolio.daily_data('AAPL'))
+print(Portfolio.daily_data('AAPL'))
 print(Portfolio.symbol_meta('AAPL'))
