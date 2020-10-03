@@ -9,6 +9,7 @@ class Portfolio(Data, Risk):
 
     def add_position(self, symbol, shares):
         symbol = symbol.upper()
+        self.is_valid(symbol)  # want this to raise error if not valid
         price = self.price(symbol)
         self.portfolio[symbol] = {
                                   "shares": shares,

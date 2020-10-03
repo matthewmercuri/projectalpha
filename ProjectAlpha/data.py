@@ -31,7 +31,8 @@ class Data:
         if self.source == "tiingo":
             valid = Tiingo.is_valid(symbol)
 
-        return valid
+        if valid is False:
+            raise NameError('Symbol is not found')
 
     def symbol_meta(self, symbol):
         if self.source == "tiingo":
