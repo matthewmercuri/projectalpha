@@ -13,6 +13,7 @@ class Portfolio(Data, Risk):
         super().__init__(source)
         self.portfolio = {}
         self.portfolio['positions'] = {}
+        self.benchmark = "SP500"
 
     def add_position(self, symbol, shares):
         ''' May want to add other info about the position, like
@@ -29,6 +30,7 @@ class Portfolio(Data, Risk):
 
     def history(self):
         ''' Later will have to adjust to a one currency
+        - TO-DO: get benchmark series as well
         - after getting position values, add cash value col and total
         - perhaps this will only be used to show a non-trading portfolio
         '''
@@ -43,7 +45,7 @@ class Portfolio(Data, Risk):
             symbol_df = self.daily_data(symbol)
             symbol_df = symbol_df['adjClose']
             symbol_df = symbol_df * shares
-            # below line works as it is technically a series
+            # below line works as it is technically a pandas series
             symbol_df = symbol_df.rename(symbol)
 
             frames.append(symbol_df)
@@ -76,14 +78,22 @@ class Portfolio(Data, Risk):
     def chart(self):
         pass
 
-    def add_benchmark(self, benchmark):
-        pass
+    def change_benchmark(self, benchmark):
+        benchmark = benchmark.upper()
+
+        valid_benchmarks = ['SP500', 'NAS100']
+
+        if benchmark in valid_benchmarks:
+            self.benchmark = benchmark
+        else:
+            print('Please enter a valid benchmark: ' + str(valid_benchmarks))
 
 
 Portfolio = Portfolio()
-Portfolio.add_position('AAPL', 10)
-Portfolio.add_position('AMD', 20)
+Portfolio.change_benchmark('NAS100')
+# Portfolio.add_position('AAPL', 10)
+# Portfolio.add_position('AMD', 20)
 # print(Portfolio.portfolio)
 # print(Portfolio.daily_data('AAPL'))
-print(Portfolio.history())
+# print(Portfolio.history())
 # print(Portfolio.symbol_meta('AAPL'))
