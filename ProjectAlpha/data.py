@@ -12,6 +12,18 @@ class Data:
     def __init__(self, source="tiingo"):
         self.source = source
 
+    def benchmark_data(self, benchmark):
+        ''' This may not be ideal:
+        - we would want this to fetch the index directly (not ETF)
+        '''
+        if self.source == "tiingo":
+            if benchmark == "SP500":
+                bench_df = self.daily_data('SPY')
+            elif benchmark == "NAS100":
+                bench_df = self.daily_data('QQQ')
+
+        return bench_df
+
     def price(self, symbol):
         if self.source == "tiingo":
             symbol = self.symbol_check(symbol)

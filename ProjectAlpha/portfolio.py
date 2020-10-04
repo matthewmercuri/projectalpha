@@ -14,6 +14,7 @@ class Portfolio(Data, Risk):
         self.portfolio = {}
         self.portfolio['positions'] = {}
         self.benchmark = "SP500"
+        self.cash = 0
 
     def add_position(self, symbol, shares):
         ''' May want to add other info about the position, like
@@ -50,7 +51,12 @@ class Portfolio(Data, Risk):
 
             frames.append(symbol_df)
 
-        df = pd.concat(frames, axis=1, sort=False, names=['A', 'B'])
+        bench_df = self.benchmark_data(self.benchmark)
+        bench_series = bench_df['adjClose'].rename(self.benchmark)
+
+        frames.append(bench_series)
+
+        df = pd.concat(frames, axis=1, sort=False)
         df['Total Value'] = df.sum(axis=1)
         df['Percent Return'] = df['Total Value'].pct_change()
         df['Log Return'] = (np.log(df['Total Value'])
@@ -90,10 +96,10 @@ class Portfolio(Data, Risk):
 
 
 Portfolio = Portfolio()
-Portfolio.change_benchmark('NAS100')
-# Portfolio.add_position('AAPL', 10)
-# Portfolio.add_position('AMD', 20)
+# Portfolio.change_benchmark('NAS100')
+Portfolio.add_position('AAPL', 10)
+Portfolio.add_position('AMD', 20)
 # print(Portfolio.portfolio)
 # print(Portfolio.daily_data('AAPL'))
-# print(Portfolio.history())
+print(Portfolio.history())
 # print(Portfolio.symbol_meta('AAPL'))
