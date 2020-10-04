@@ -16,6 +16,7 @@ class Portfolio(Data, Risk):
         ''' May want to add other info about the position, like
         currency
         '''
+        self.symbol_check(symbol)
         self.portfolio['positions'][symbol] = {"shares": shares}
 
     def delete_position(self, symbol, shares):
@@ -26,7 +27,10 @@ class Portfolio(Data, Risk):
 
     def return_series(self):
         positions = self.portfolio['positions']
-        pass
+        print(positions)
+        for position in positions:
+            print(positions[position])
+            print(positions[position]['shares'])
 
     def export(self):
         pass
@@ -46,6 +50,8 @@ class Portfolio(Data, Risk):
 
 Portfolio = Portfolio()
 Portfolio.add_position('AAPL', 10)
+Portfolio.add_position('AMD', 20)
 print(Portfolio.portfolio)
+Portfolio.return_series()
 # print(Portfolio.daily_data('AAPL'))
 # print(Portfolio.symbol_meta('AAPL'))

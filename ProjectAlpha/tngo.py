@@ -39,7 +39,7 @@ class Tiingo:
 
         return df
 
-    def is_valid(self, symbol):
+    def _is_valid(self, symbol):
         if symbol in self.tickers:
             return True
         else:

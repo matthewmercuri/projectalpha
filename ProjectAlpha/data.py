@@ -35,16 +35,16 @@ class Data:
 
         return meta
 
-    def is_valid(self, symbol):
+    def _is_valid(self, symbol):
         if self.source == "tiingo":
-            valid = Tiingo.is_valid(symbol)
+            valid = Tiingo._is_valid(symbol)
 
         if valid is False:
             raise NameError('Symbol is not found')
 
     def symbol_check(self, symbol):
         symbol = symbol.upper()
-        self.is_valid(symbol)
+        self._is_valid(symbol)
 
         return symbol
 
