@@ -73,7 +73,6 @@ class Tiingo:
 
         df = pd.read_json(response, orient='record')
         df.set_index('date', inplace=True)
-        print(df)
 
         return df
 

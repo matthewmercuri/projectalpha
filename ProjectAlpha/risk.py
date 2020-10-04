@@ -6,6 +6,7 @@ a portfolio that trades?
 - start with simpler methods like alpha, beta, etc.
 - we want to start this class by being applied to the return
 df (which would be the return series of the port)
+- finally, we want a method that prints out ALL of the metrics
 '''
 
 
