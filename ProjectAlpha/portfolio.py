@@ -1,14 +1,13 @@
 from data import Data
 import numpy as np
 import pandas as pd
-from risk import Risk
 
 ''' This portfolio object can change over time, so we should be
 able to use the same class in a trading backtest.
 '''
 
 
-class Portfolio(Data, Risk):
+class Portfolio(Data):
     def __init__(self, source="tiingo"):
         super().__init__(source)
         self.portfolio = {}
@@ -51,24 +50,29 @@ class Portfolio(Data, Risk):
 
             frames.append(symbol_df)
 
-        bench_df = self.benchmark_data(self.benchmark)
-        bench_series = bench_df['adjClose'].rename(self.benchmark)
-
-        frames.append(bench_series)
-
         df = pd.concat(frames, axis=1, sort=False)
         df['Total Value'] = df.sum(axis=1)
         df['Percent Return'] = df['Total Value'].pct_change()
         df['Log Return'] = (np.log(df['Total Value'])
                             - np.log(df['Total Value'].shift(1)))
 
+        bench_df = self.benchmark_data(self.benchmark)
+        bench_series = bench_df['adjClose'].rename('Benchmark')
+
+        df = pd.concat([df, bench_series], axis=1, sort=False)
+
+        self.history = df
+
         return df
 
     def return_series(self):
-        ''' This is what should be passed to the risk metrics
+        ''' This is what should be passed to the risk metrics?
+        Perhaps this is uselesss.
         '''
         df = self.history()
         return_series = df['Total Value']
+
+        self.return_series = return_series
 
         return return_series
 
@@ -95,11 +99,12 @@ class Portfolio(Data, Risk):
             print('Please enter a valid benchmark: ' + str(valid_benchmarks))
 
 
-Portfolio = Portfolio()
+# Portfolio = Portfolio()
 # Portfolio.change_benchmark('NAS100')
-Portfolio.add_position('AAPL', 10)
-Portfolio.add_position('AMD', 20)
+# Portfolio.add_position('AAPL', 10)
+# Portfolio.add_position('AMD', 20)
 # print(Portfolio.portfolio)
 # print(Portfolio.daily_data('AAPL'))
-print(Portfolio.history())
+# print(Portfolio.history())
 # print(Portfolio.symbol_meta('AAPL'))
+# Portfolio.metrics()
